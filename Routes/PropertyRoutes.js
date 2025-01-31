@@ -1,0 +1,11 @@
+const express = require("express");
+const upload = require("../Midelware/Multer");
+//const Athontication = require("../Midelware/Authentication");
+const router = express.Router();
+const PropertyController = require("../Controllers/PropertyController");
+router.get("/getProperty",  PropertyController.getProperty);
+router.get("/:id", PropertyController.id);
+router.post("/addInterestedUser/:id", PropertyController.addInterestedUser);
+router.delete("/deleteProperty/:id", PropertyController.deleteitem);
+router.put("/updateProperty/:id", PropertyController.UpdateProperty);
+module.exports = router;
