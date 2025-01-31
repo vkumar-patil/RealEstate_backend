@@ -21,50 +21,6 @@ exports.getProperty = async (req, res) => {
   }
 };
 
-// exports.getPropertydata = async (req, res) => {
-//   const { location, propertySize, bedrooms, maxPrice } = req.query;
-
-//   try {
-//     const filter = {};
-
-//     // Mandatory: Match location first
-//     if (location && location !== "allCities") filter.city = location;
-
-//     // Conditional: Apply other filters only if location matches
-//     if (propertySize && propertySize !== "allSizes")
-//       filter.propertySize = propertySize;
-
-//     if (bedrooms && bedrooms !== "any") filter.bedroom = bedrooms;
-
-//     if (maxPrice && maxPrice !== "any") {
-//       filter.budget = { $lte: Number(maxPrice) }; // Less than or equal to maxPrice
-//     }
-
-//     // Query the database with the prioritized filter
-//     const admindata = await Admin.find(filter);
-
-//     const dataWithLinks = admindata.map((item) => ({
-//       ...item._doc,
-//       Image: item.Image
-//         ? item.Image.split(",").map(
-//             (fileName) => `http://localhost:8000/uploads/${fileName}`
-//           )
-//         : [],
-//     }));
-//     res.status(200).send({
-//       message: "Data retrieval successful",
-//       success: true,
-//       data: dataWithLinks,
-//     });
-//   } catch (error) {
-//     res.status(500).send({
-//       message: "Data not found",
-//       success: false,
-//       error: error.message,
-//     });
-//   }
-// };
-
 exports.id = async (req, res) => {
   const PropertyId = req.params.id;
   try {
