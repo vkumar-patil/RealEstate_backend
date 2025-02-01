@@ -12,4 +12,5 @@ router.post(
 
 router.post("/AddInquiry", Inquirycontroller.AddInquiry);
 router.get("/getInquiry", Inquirycontroller.getInquiryNotification);
+router.get("/getfilterdata", AdminController.getFilteredProperties);
 module.exports = router;
