@@ -7,7 +7,7 @@ const fs = require("fs");
 const path = require("path"); 
 require("dotenv").config();
 
-const port = process.env.PORT || 8000;
+const PORT = process.env.PORT || 5000;
 
 const connectDB = require("./Config/db");
 
@@ -29,6 +29,6 @@ app.use("/api/Property", PropertyController);
 
 connectDB();
 
-app.listen(port, () => {
+app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
