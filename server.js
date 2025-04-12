@@ -6,16 +6,12 @@ const PropertyController = require("./Routes/PropertyRoutes");
 const fs = require("fs");
 const path = require("path");
 require("dotenv").config();
-
-const PORT = 8001;
-
+const PORT = process.env.PORT;
 const connectDB = require("./Config/db");
-
 const uploadDir = path.join(__dirname, "../uploads");
 const app = express();
 app.use(cors());
 app.use(express.json());
-
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
   console.log("Uploads folder created successfully!");
