@@ -42,12 +42,10 @@ exports.addInterestedUser = async (req, res) => {
   const { username, email, contact } = req.body;
 
   try {
-    // Validate property ID
     if (!mongoose.Types.ObjectId.isValid(propertyId)) {
       return res.status(400).json({ message: "Invalid property ID format" });
     }
 
-    // Find the property
     const property = await Admin.findById(propertyId);
     if (!property) {
       return res.status(404).json({ message: "Property not found" });
@@ -92,7 +90,6 @@ exports.UpdateProperty = async (req, res) => {
   const updateData = req.body;
 
   try {
-    // Find the property by ID and update it
     const updatedProperty = await Admin.findByIdAndUpdate(
       id,
       { $set: updateData },
@@ -110,5 +107,27 @@ exports.UpdateProperty = async (req, res) => {
   } catch (error) {
     console.error("Error updating property:", error);
     res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+exports.filter = async (req, res) => {
+  try {
+    const { city ,budget} = req.body;
+
+    if (!city) {
+      return res.status(400).send({ message: "City is required" });
+    }
+
+    const filtered = await Admin.find({ city: city ,budget:budget}); 
+
+    if (filtered.length === 0) {
+      return res
+        .status(404)
+        .send({ message: "No properties found for this city" });
+    }
+
+    res.status(200).send({ data: filtered });
+  } catch (error) {
+    res.status(500).send({ message: "Server error", error: error.message });
   }
 };

@@ -5,27 +5,22 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const JWT_SECRET = process.env.JWT_SECRET;
-// Register Function
 exports.Register = async (req, res) => {
   try {
     const { username, email, contact, password } = req.body;
 
-    // Validate input
     if (!username || !email || !contact || !password) {
       return res.status(400).send({ message: "All fields are required" });
     }
 
-    // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       console.log("User already exists");
       return res.status(400).send({ message: "User already exists" });
     }
 
-    // Hash the password
     const hashpassword = await bcrypt.hash(password, 10);
 
-    // Create a new user
     const newUser = new User({
       username,
       email,
@@ -41,25 +36,21 @@ exports.Register = async (req, res) => {
   }
 };
 
-// Login Function
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Validate input
     if (!email || !password) {
       return res
         .status(400)
         .send({ message: "Email and password are required" });
     }
 
-    // Find user by email
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).send({ message: "Invalid credentials" });
     }
 
-    // Compare password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(401).send({ message: "Invalid credentials" });
@@ -100,8 +91,8 @@ exports.getUserDetails = async (req, res) => {
       return res.status(401).json({ message: "Token not provided" });
     }
 
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET); // Use process.env
-    const user = await User.findById(decodedToken.userId); // Use userId, not id
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET); 
+    const user = await User.findById(decodedToken.userId); 
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });

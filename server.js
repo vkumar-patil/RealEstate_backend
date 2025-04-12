@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const dotenv = require("dotenv");
 const userRoutes = require("./Routes/userRoutes");
 const AdminRoutes = require("./Routes/AdminRoutes");
 const PropertyController = require("./Routes/PropertyRoutes");
@@ -12,7 +11,6 @@ const connectDB = require("./Config/db");
 
 const uploadDir = path.join(__dirname, "../uploads"); // Fixed spelling: 'uplods' -> 'uploads'
 const app = express();
-dotenv.config();
 app.use(cors());
 app.use(express.json());
 
